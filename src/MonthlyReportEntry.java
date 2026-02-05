@@ -1,12 +1,12 @@
 public class MonthlyReportEntry {
     private String itemName;
-    private boolean expense;
+    private boolean isExpense;
     private int quantity;
     private int sumOfOne;
 
     public MonthlyReportEntry(String itemName, boolean expense, int quantity, int sumOfOne) {
         this.itemName = itemName;
-        this.expense = expense;
+        this.isExpense = expense;
         this.quantity = quantity;
         this.sumOfOne = sumOfOne;
     }
@@ -18,7 +18,7 @@ public class MonthlyReportEntry {
     }
 
     public boolean isExpense() {
-        return expense;
+        return isExpense;
     }
 
     public int getQuantity() {
