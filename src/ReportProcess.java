@@ -13,7 +13,7 @@ public class ReportProcess {
         FileReader fileReader = new FileReader();
         for (int i = 1; i < 4; i++) {
             ArrayList<String> readFilesContents= fileReader.readFilesContents(MONTH_NAME + i + ".csv");
-            System.out.println(MONTH_NAME + i + ".csv");
+            System.out.println(MONTH_NAME + i);
             for (int j = 1; j < readFilesContents.size(); j++) {
                 System.out.println(readFilesContents.get(j));
             }
@@ -24,6 +24,7 @@ public class ReportProcess {
         FileReader fileReader = new FileReader();
         for (int i = 1; i < 2; i++) {
             ArrayList<String> readFilesContents = fileReader.readFilesContents(YEAR_NAME + i + ".csv");
+            System.out.println(YEAR_NAME + i);
             for (int j = 1; j < readFilesContents.size(); j++) {
                 System.out.println(readFilesContents.get(j));
             }
