@@ -28,4 +28,14 @@ public class MonthlyReportEntry {
     public int getSumOfOne() {
         return sumOfOne;
     }
+
+    @Override
+    public String toString() {
+        return "MonthlyReportEntry{" +
+                "itemName='" + itemName + '\'' +
+                ", isExpense=" + isExpense +
+                ", quantity=" + quantity +
+                ", sumOfOne=" + sumOfOne +
+                '}';
+    }
 }

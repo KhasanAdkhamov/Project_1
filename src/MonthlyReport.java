@@ -19,5 +19,11 @@ public class MonthlyReport {
         entries.add(entry);
     }
 
-
+    @Override
+    public String toString() {
+        return "MonthlyReport{" +
+                "entries=" + entries +
+                ", month=" + month +
+                '}';
+    }
 }
