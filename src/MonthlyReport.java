@@ -19,6 +19,14 @@ public class MonthlyReport {
         entries.add(entry);
     }
 
+    public List<MonthlyReportEntry> getEntries() {
+        return entries;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
     @Override
     public String toString() {
         return "MonthlyReport{" +

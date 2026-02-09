@@ -18,4 +18,20 @@ public class YearlyReport {
         }
         entries.add(entry);
     }
+
+    public List<YearlyReportEntry> getEntries() {
+        return entries;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    @Override
+    public String toString() {
+        return "YearlyReport{" +
+                "entries=" + entries +
+                ", year=" + year +
+                '}';
+    }
 }

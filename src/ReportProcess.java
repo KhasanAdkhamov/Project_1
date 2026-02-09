@@ -5,49 +5,52 @@ public class ReportProcess {
 
     private final static String MONTH_NAME = "m.20210";
     private final static String YEAR_NAME = "y.202";
-    public List<String> monthReportsList;
-    private MonthlyReportEntry monthlyReportEntry;
-    private MonthlyReport monthlyReport;
+    private List<MonthlyReport> monthlyReports;
+    private List<YearlyReport> yearlyReports;
+    private FileReader fileReader;
 
     // todo продумать хранение данных
 
     public void loadMonthlyReports() {
-        FileReader fileReader = new FileReader();
+        fileReader = new FileReader();
+        monthlyReports = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
-            ArrayList<String> readFilesContents= fileReader.readFilesContents(MONTH_NAME + i + ".csv");
+            MonthlyReport monthlyReport = new MonthlyReport(i);
+            monthlyReports.add(monthlyReport);
+            ArrayList<String> readFileContents= fileReader.readFile(MONTH_NAME + i + ".csv");
             System.out.println(MONTH_NAME + i + ".csv");
-            for (int j = 1; j < readFilesContents.size(); j++) {
-                System.out.println(readFilesContents.get(j));
-            }
-        }
-    }
-
-    public void loadYearlyReports() {
-        FileReader fileReader = new FileReader();
-        for (int i = 1; i < 2; i++) {
-            ArrayList<String> readFilesContents = fileReader.readFilesContents(YEAR_NAME + i + ".csv");
-            for (int j = 1; j < readFilesContents.size(); j++) {
-                System.out.println(readFilesContents.get(j));
-            }
-        }
-    }
-
-    public void reconcileReports() {
-        //monthlyReportEntry = new MonthlyReportEntry();
-        FileReader fileReader = new FileReader();
-        for (int i = 1; i < 4; i++) {
-            ArrayList<String> filesContents = fileReader.readFilesContents(MONTH_NAME + i + ".csv");
-            for (int j = 1; j < filesContents.size(); j++) {
-                monthlyReport = new MonthlyReport(i);
-                String[] split = filesContents.get(j).split(",");
+            for (int j = 1; j < readFileContents.size(); j++) {
+                System.out.println(readFileContents.get(j));
+                String[] split = readFileContents.get(j).split(",");
                 String itemName = split[0];
                 boolean isExpense = Boolean.parseBoolean(split[1]);
                 int quantity = Integer.parseInt(split[2]);
                 int sumOfOne = Integer.parseInt(split[3]);
                 monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
-                System.out.println(monthlyReport);
             }
         }
+    }
+
+    public void loadYearlyReports() {
+        fileReader = new FileReader();
+        yearlyReports = new ArrayList<>();
+        for (int i = 1; i < 2; i++) {
+            YearlyReport yearlyReport = new YearlyReport(i);
+            yearlyReports.add(yearlyReport);
+            ArrayList<String> readFilesContents = fileReader.readFile(YEAR_NAME + i + ".csv");
+            for (int j = 1; j < readFilesContents.size(); j++) {
+                System.out.println(readFilesContents.get(j));
+                String[] split = readFilesContents.get(j).split(",");
+                int month = Integer.parseInt(split[0]);
+                int amount = Integer.parseInt(split[1]);
+                boolean isExpense = Boolean.parseBoolean(split[2]);
+                yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
+            }
+        }
+    }
+
+    public void reconcileReports() {
+
     }
 
 

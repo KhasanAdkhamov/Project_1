@@ -17,11 +17,9 @@ public class App {
                     return;
                 }
                 case 1 -> {
-
                     reportProcess.loadMonthlyReports();
                 }
                 case 2 -> {
-
                     reportProcess.loadYearlyReports();
                 }
                 case 3 -> {
