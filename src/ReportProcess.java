@@ -59,9 +59,7 @@ public class ReportProcess {
             MonthlyReport monthlyReport = new MonthlyReport(i);
             monthlyReports.add(monthlyReport);
             ArrayList<String> readFileContents = fileReader.readFile(MONTH_NAME + i + ".csv");
-            System.out.println(MONTH_NAME + i + ".csv");
             for (int j = 1; j < readFileContents.size(); j++) {
-                System.out.println(readFileContents.get(j));
                 String[] split = readFileContents.get(j).split(",");
                 String itemName = split[0];
                 boolean isExpense = Boolean.parseBoolean(split[1]);
