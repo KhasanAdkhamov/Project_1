@@ -1,4 +1,4 @@
-import exceptions.YearException;
+import exceptions.ReportsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class YearlyReport {
 
     public void addEntry(YearlyReportEntry entry) {
         if (entry == null) {
-            throw new YearException("неверный формат");
+            throw new ReportsException("неверный формат");
         }
         entries.add(entry);
     }

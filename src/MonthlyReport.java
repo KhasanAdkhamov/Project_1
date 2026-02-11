@@ -1,4 +1,4 @@
-import exceptions.MonthException;
+import exceptions.ReportsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,17 @@ public class MonthlyReport {
 
     public void addEntry(MonthlyReportEntry entry) {
         if (entry == null)  {
-            throw new MonthException("неверный формат");
+            throw new ReportsException("неверный формат");
         }
         entries.add(entry);
     }
 
     public List<MonthlyReportEntry> getEntries() {
         return entries;
+    }
+
+    public int totalSum(MonthlyReportEntry monthlyReportEntry) {
+        return monthlyReportEntry.getSumOfOne() * monthlyReportEntry.getQuantity();
     }
 
     public int getMonth() {

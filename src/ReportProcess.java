@@ -1,3 +1,5 @@
+import exceptions.ReportsException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class ReportProcess {
         for (int i = 1; i < 4; i++) {
             MonthlyReport monthlyReport = new MonthlyReport(i);
             monthlyReports.add(monthlyReport);
-            ArrayList<String> readFileContents= fileReader.readFile(MONTH_NAME + i + ".csv");
+            ArrayList<String> readFileContents = fileReader.readFile(MONTH_NAME + i + ".csv");
             System.out.println(MONTH_NAME + i + ".csv");
             for (int j = 1; j < readFileContents.size(); j++) {
                 System.out.println(readFileContents.get(j));
@@ -29,6 +31,7 @@ public class ReportProcess {
                 monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
             }
         }
+        System.out.println(monthlyReports.size());
     }
 
     public void loadYearlyReports() {
@@ -50,15 +53,77 @@ public class ReportProcess {
     }
 
     public void reconcileReports() {
+        fileReader = new FileReader();
+        monthlyReports = new ArrayList<>();
+        for (int i = 1; i < 4; i++) {
+            MonthlyReport monthlyReport = new MonthlyReport(i);
+            monthlyReports.add(monthlyReport);
+            ArrayList<String> readFileContents = fileReader.readFile(MONTH_NAME + i + ".csv");
+            System.out.println(MONTH_NAME + i + ".csv");
+            for (int j = 1; j < readFileContents.size(); j++) {
+                System.out.println(readFileContents.get(j));
+                String[] split = readFileContents.get(j).split(",");
+                String itemName = split[0];
+                boolean isExpense = Boolean.parseBoolean(split[1]);
+                int quantity = Integer.parseInt(split[2]);
+                int sumOfOne = Integer.parseInt(split[3]);
+                monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
+            }
+        }
+        for (MonthlyReport monthlyReport : monthlyReports) {
+            System.out.println(monthlyReport.getMonth());
+            for (MonthlyReportEntry entry : monthlyReport.getEntries()) {
+                if (entry.isExpense()) {
+                    int expense = monthlyReport.totalSum(entry);
+                    System.out.println(entry.getItemName() + " " + expense + " расход");
+                } else {
+                    int income = monthlyReport.totalSum(entry);
+                    System.out.println(entry.getItemName() + " " + income + " доход");
+                }
+            }
 
+        }
     }
 
 
     public void printMonthlyReportsInfo() {
-
+        fileReader = new FileReader();
+        monthlyReports = new ArrayList<>();
+        for (int i = 1; i < 4; i++) {
+            MonthlyReport monthlyReport = new MonthlyReport(i);
+            monthlyReports.add(monthlyReport);
+            ArrayList<String> readFileContents = fileReader.readFile(MONTH_NAME + i + ".csv");
+            System.out.println(MONTH_NAME + i + ".csv");
+            for (int j = 1; j < readFileContents.size(); j++) {
+                System.out.println(readFileContents.get(j));
+                String[] split = readFileContents.get(j).split(",");
+                String itemName = split[0];
+                boolean isExpense = Boolean.parseBoolean(split[1]);
+                int quantity = Integer.parseInt(split[2]);
+                int sumOfOne = Integer.parseInt(split[3]);
+                monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
+            }
+            System.out.println(monthlyReport);
+        }
     }
 
     public void printYearlyReportsInfo() {
-
+        fileReader = new FileReader();
+        yearlyReports = new ArrayList<>();
+        for (int i = 1; i < 2; i++) {
+            YearlyReport yearlyReport = new YearlyReport(i);
+            yearlyReports.add(yearlyReport);
+            ArrayList<String> readFilesContents = fileReader.readFile(YEAR_NAME + i + ".csv");
+            for (int j = 1; j < readFilesContents.size(); j++) {
+                System.out.println(readFilesContents.get(j));
+                String[] split = readFilesContents.get(j).split(",");
+                int month = Integer.parseInt(split[0]);
+                int amount = Integer.parseInt(split[1]);
+                boolean isExpense = Boolean.parseBoolean(split[2]);
+                yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
+            }
+        }
+        System.out.println(yearlyReports);
     }
 }
+
