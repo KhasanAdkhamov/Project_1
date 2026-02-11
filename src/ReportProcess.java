@@ -103,7 +103,6 @@ public class ReportProcess {
                 int sumOfOne = Integer.parseInt(split[3]);
                 monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
             }
-            System.out.println(monthlyReport);
         }
     }
 
@@ -123,7 +122,6 @@ public class ReportProcess {
                 yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
             }
         }
-        System.out.println(yearlyReports);
     }
 }
 
