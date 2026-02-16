@@ -1,6 +1,7 @@
 import exceptions.ReportsException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReportProcess {
@@ -83,33 +84,33 @@ public class ReportProcess {
                     }
                 }
             }
-
         }
     }
 
 
     public void printMonthlyReportsInfo() {
-        fileReader = new FileReader();
-//        monthlyReports = new ArrayList<>();
-//        for (int i = 1; i < 4; i++) {
-//            MonthlyReport monthlyReport = new MonthlyReport(i);
-//            monthlyReports.add(monthlyReport);
-//            ArrayList<String> readFileContents = fileReader.readFile(MONTH_NAME + i + ".csv");
-//            System.out.println(MONTH_NAME + i + ".csv");
-//            for (int j = 1; j < readFileContents.size(); j++) {
-//                System.out.println(readFileContents.get(j));
-//                String[] split = readFileContents.get(j).split(",");
-//                String itemName = split[0];
-//                boolean isExpense = Boolean.parseBoolean(split[1]);
-//                int quantity = Integer.parseInt(split[2]);
-//                int sumOfOne = Integer.parseInt(split[3]);
-//                monthlyReport.addEntry(new MonthlyReportEntry(itemName, isExpense, quantity, sumOfOne));
-//            }
-//        }
+        String name = null;
+        int best = 0;
+        for (MonthlyReport monthlyReport : monthlyReports) {
+            System.out.println(monthlyReport.getMonth() + " месяц");
+            for (MonthlyReportEntry monthlyReportEntry : monthlyReport.getEntries()) {
+                if (!monthlyReportEntry.isExpense()) {
+                    monthlyReportEntry.getSumOfOne();
+                    //System.out.println(monthlyReportEntry.getItemName() + " " + monthlyReportEntry.getSumOfOne());
+                    if (monthlyReportEntry.getSumOfOne() > best) {
+                        best = monthlyReportEntry.getSumOfOne();
+                        name = monthlyReportEntry.getItemName();
+                    }
+                }
+            }
+            System.out.println("самый прибыльный товар " + best + " " + name);
+        }
+
     }
 
     public void printYearlyReportsInfo() {
 
     }
+
 }
 
