@@ -89,21 +89,29 @@ public class ReportProcess {
 
 
     public void printMonthlyReportsInfo() {
-        String name = null;
-        int best = 0;
         for (MonthlyReport monthlyReport : monthlyReports) {
+            String name = null;
+            String totalSumName = null;
+            int bestIncome = 0;
+            int best = 0;
             System.out.println(monthlyReport.getMonth() + " месяц");
             for (MonthlyReportEntry monthlyReportEntry : monthlyReport.getEntries()) {
                 if (!monthlyReportEntry.isExpense()) {
                     monthlyReportEntry.getSumOfOne();
+                    int totalSumEntry = monthlyReport.totalSum(monthlyReportEntry);
                     //System.out.println(monthlyReportEntry.getItemName() + " " + monthlyReportEntry.getSumOfOne());
                     if (monthlyReportEntry.getSumOfOne() > best) {
                         best = monthlyReportEntry.getSumOfOne();
                         name = monthlyReportEntry.getItemName();
                     }
+                    if (totalSumEntry > bestIncome) {
+                        bestIncome = totalSumEntry;
+                        totalSumName = monthlyReportEntry.getItemName();
+                    }
                 }
             }
             System.out.println("самый прибыльный товар " + best + " " + name);
+            System.out.println("cамый прибыльный товар по общей сумме " + bestIncome + " " + totalSumName);
         }
 
     }
