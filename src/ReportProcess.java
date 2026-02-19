@@ -1,7 +1,6 @@
 import exceptions.ReportsException;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ReportProcess {
@@ -90,28 +89,44 @@ public class ReportProcess {
 
     public void printMonthlyReportsInfo() {
         for (MonthlyReport monthlyReport : monthlyReports) {
-            String name = null;
+            String bestProductName = null;
             String totalSumName = null;
-            int bestIncome = 0;
-            int best = 0;
+            int bestProduct = 0;
+            int bestProfitAble = 0;
+            String worseProductName = null;
+            String totalSumExpenseName = null;
+            int worseProduct = 0;
+            int worseExpense = 0;
             System.out.println(monthlyReport.getMonth() + " месяц");
             for (MonthlyReportEntry monthlyReportEntry : monthlyReport.getEntries()) {
                 if (!monthlyReportEntry.isExpense()) {
                     monthlyReportEntry.getSumOfOne();
                     int totalSumEntry = monthlyReport.totalSum(monthlyReportEntry);
-                    //System.out.println(monthlyReportEntry.getItemName() + " " + monthlyReportEntry.getSumOfOne());
-                    if (monthlyReportEntry.getSumOfOne() > best) {
-                        best = monthlyReportEntry.getSumOfOne();
-                        name = monthlyReportEntry.getItemName();
+                    if (monthlyReportEntry.getSumOfOne() > bestProduct) {
+                        bestProduct = monthlyReportEntry.getSumOfOne();
+                        bestProductName = monthlyReportEntry.getItemName();
                     }
-                    if (totalSumEntry > bestIncome) {
-                        bestIncome = totalSumEntry;
+                    if (totalSumEntry > bestProfitAble) {
+                        bestProfitAble = totalSumEntry;
                         totalSumName = monthlyReportEntry.getItemName();
+                    }
+                } else {
+                    monthlyReportEntry.getSumOfOne();
+                    int totalSumEntryExpense = monthlyReport.totalSum(monthlyReportEntry);
+                    if (monthlyReportEntry.getSumOfOne() > worseProduct) {
+                        worseProduct = monthlyReportEntry.getSumOfOne();
+                        worseProductName = monthlyReportEntry.getItemName();
+                    }
+                    if (totalSumEntryExpense > worseExpense) {
+                        worseExpense = totalSumEntryExpense;
+                        totalSumExpenseName = monthlyReportEntry.getItemName();
                     }
                 }
             }
-            System.out.println("самый прибыльный товар " + best + " " + name);
-            System.out.println("cамый прибыльный товар по общей сумме " + bestIncome + " " + totalSumName);
+            System.out.println("самый прибыльный товар " + bestProduct + " " + bestProductName);
+            System.out.println("cамый прибыльный товар по общей сумме " + bestProfitAble + " " + totalSumName);
+            System.out.println("самая большая трата " + worseProduct + " " + worseProductName);
+            System.out.println("самая большая трата по общей сумме " + worseExpense + " " + totalSumExpenseName);
         }
 
     }
