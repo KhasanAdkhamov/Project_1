@@ -132,7 +132,23 @@ public class ReportProcess {
     }
 
     public void printYearlyReportsInfo() {
-
+        for (YearlyReport yearlyReport : yearlyReports) {
+            int totalIncome = 0;
+            int totalExpense = 0;
+            System.out.println(yearlyReport.getYear());
+            for (YearlyReportEntry yearlyReportEntry : yearlyReport.getEntries()) {
+                if (!yearlyReportEntry.isExpense()) {
+                    System.out.println(yearlyReportEntry.getAmount() + " прибыль за " + yearlyReportEntry.getMonth() + " месяц");
+                    totalIncome += yearlyReportEntry.getAmount();
+                } else {
+                    totalExpense += yearlyReportEntry.getAmount();
+                }
+            }
+            int averageIncome = totalIncome / monthlyReports.size();
+            int averageExpense = totalExpense / monthlyReports.size();
+            System.out.println(averageIncome + " средний доход за все имеющиеся операции в году.");
+            System.out.println(averageExpense + " средний расход за все имеющиеся операции в году");
+        }
     }
 
 }
