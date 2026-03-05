@@ -6,8 +6,6 @@ import java.util.List;
 
 public class ReportProcess {
 
-    private final static String MONTH_NAME = "m.20210";
-    private final static String YEAR_NAME = "y.202";
     private List<MonthlyReport> monthlyReports = new ArrayList<>();
     private List<YearlyReport> yearlyReports = new ArrayList<>();
     private FileReader fileReader;
