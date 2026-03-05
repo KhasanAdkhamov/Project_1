@@ -29,6 +29,7 @@ public class ReportProcess {
                 String subString = monthName.substring(indexYear+4, indexFormat);
                 if (monthName.contains(month)) {
                     MonthlyReport monthlyReport = new MonthlyReport(Integer.parseInt(subString));
+                    monthlyReports.add(monthlyReport);
                     ArrayList<String> readFileContents = fileReader.readFile(monthName);
                     System.out.println(monthName);
                     for (int j = 1; j < readFileContents.size(); j++) {
@@ -61,7 +62,6 @@ public class ReportProcess {
 //        }
     }
 
-
     public void loadYearlyReports() {
         fileReader = new FileReader();
         for (int i = 1; i < 2; i++) {
@@ -78,6 +78,24 @@ public class ReportProcess {
             }
         }
     }
+
+
+//    public void loadYearlyReportss() {
+//        fileReader = new FileReader();
+//        for (int i = 1; i < 2; i++) {
+//            YearlyReport yearlyReport = new YearlyReport(i);
+//            yearlyReports.add(yearlyReport);
+//            ArrayList<String> readFilesContents = fileReader.readFile(YEAR_NAME + i + ".csv");
+//            for (int j = 1; j < readFilesContents.size(); j++) {
+//                System.out.println(readFilesContents.get(j));
+//                String[] split = readFilesContents.get(j).split(",");
+//                int month = Integer.parseInt(split[0]);
+//                int amount = Integer.parseInt(split[1]);
+//                boolean isExpense = Boolean.parseBoolean(split[2]);
+//                yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
+//            }
+//        }
+//    }
 
     public void reconcileReports() {
         if (monthlyReports == null || monthlyReports.isEmpty() && yearlyReports == null || yearlyReports.isEmpty()) {
