@@ -64,17 +64,29 @@ public class ReportProcess {
 
     public void loadYearlyReports() {
         fileReader = new FileReader();
-        for (int i = 1; i < 2; i++) {
-            YearlyReport yearlyReport = new YearlyReport(i);
-            yearlyReports.add(yearlyReport);
-            ArrayList<String> readFilesContents = fileReader.readFile(YEAR_NAME + i + ".csv");
-            for (int j = 1; j < readFilesContents.size(); j++) {
-                System.out.println(readFilesContents.get(j));
-                String[] split = readFilesContents.get(j).split(",");
-                int month = Integer.parseInt(split[0]);
-                int amount = Integer.parseInt(split[1]);
-                boolean isExpense = Boolean.parseBoolean(split[2]);
-                yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
+        File[] files = file.listFiles();
+        if (files != null) {
+            String year = "y.";
+            String format = ".csv";
+            String y = "20";
+            for (File file1 : files) {
+                String yearName = file1.getName();
+                int indexFormat = yearName.indexOf(format);
+                int indexYear = yearName.indexOf(y);
+                String substring = yearName.substring(indexYear + 2, indexFormat);
+                if (yearName.contains(year)) {
+                    YearlyReport yearlyReport = new YearlyReport(Integer.parseInt(substring));
+                    yearlyReports.add(yearlyReport);
+                    ArrayList<String> readFilesContents = fileReader.readFile(yearName);
+                    for (int j = 1; j < readFilesContents.size(); j++) {
+                        System.out.println(readFilesContents.get(j));
+                        String[] split = readFilesContents.get(j).split(",");
+                        int month = Integer.parseInt(split[0]);
+                        int amount = Integer.parseInt(split[1]);
+                        boolean isExpense = Boolean.parseBoolean(split[2]);
+                        yearlyReport.addEntry(new YearlyReportEntry(month, amount, isExpense));
+                    }
+                }
             }
         }
     }
@@ -176,7 +188,6 @@ public class ReportProcess {
             System.out.println("самая большая трата " + worseProduct + " " + worseProductName);
             System.out.println("самая большая трата по общей сумме " + worseExpense + " " + totalSumExpenseName);
         }
-
     }
 
     public void printYearlyReportsInfo() {
@@ -198,6 +209,5 @@ public class ReportProcess {
             System.out.println(averageExpense + " средний расход за все имеющиеся операции в году");
         }
     }
-
 }
 
